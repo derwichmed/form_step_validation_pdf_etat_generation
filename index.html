@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="bootstrap.min.css"/>
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <script src="jquery.js"></script>
+        <script src="js/jquery.js"></script>
+        <script src="js/jaktutorial.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function(){
+                    jQuery("#password").keyup(function() {
+                        passwordStrength(jQuery(this).val());
+                    });
+            });
+    </script>
+        <style>
+            ul{
+                padding: 0px;
+                padding-left: 100px
+            }
+            ul li{
+                list-style: none;
+                display: inline-block;
+                width: 60px;
+                height: 60px;
+                margin-right: 54px;
+                padding: 0px
+            }
+            label{
+                color: #b9b9b9;
+                font-weight: bold
+            }
+            table tr{
+                border-top: #b9b9b9 1px solid;
+                border-bottom: #b9b9b9 1px solid;
+                color: #b9b9b9;
+                font-weight: bold;
+            }
+        </style>
+        <script>
+            function displayImg(input){
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#img_profile').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+            $(function (){
+                $(function (){
+                    step = 1;
+                    progress_step_width = 20;
+                    progress_step_1_widht = 18;
+                    $('#next_step').click(function (){
+                        if(step < 4){
+                            step = step + 1;
+                            progress_step_width = progress_step_width + 20;
+                            progress_step_1_widht = progress_step_1_widht + 18;
+                            $('#progress_step_2').width(progress_step_width+"%");
+                            $('#progress_step_1').width(progress_step_1_widht+"%");
+                            switch(step){
+                                case 2: 
+                                    $('ul li:nth-child(1) img').attr('src','image/account_02.png');
+                                    $('ul li:nth-child(2) img').attr('src','image/personnel_02.png');
+                                    $('#form_desc').text('Personal Information:');
+                                    $('#form_index').text('Step 2 - 4');
+                                    $('ul li:nth-child(2) em').css('color','blue');
+                                    $('#form_account').css('display','none');
+                                    $('#form_personnel').css('display','block');
+                                    break;
+                                case 3:
+                                    $('ul li:nth-child(2) img').attr('src','image/personnel_03.png');
+                                    $('ul li:nth-child(3) img').attr('src','image/banc_02.png');
+                                    $('#form_desc').text('Bank Information:');
+                                    $('#form_index').text('Step 3 - 4');
+                                    $('ul li:nth-child(3) em').css('color','blue');
+                                    $('#form_personnel').css('display','none');
+                                    $('#form_banc').css('display','block');
+                                    break;
+                                case 4:
+                                    $('ul li:nth-child(3) img').attr('src','image/banc_03.png');
+                                    $('ul li:nth-child(4) img').attr('src','image/confirm_02.png');
+                                    $('#form_desc').text('Confirm Details:');
+                                    $('#form_index').text('Step 4 - 4');
+                                    $('ul li:nth-child(4) em').css('color','blue');
+                                    $('#form_banc').css('display','none');
+                                    $('#form_confirm').css('display','block');
+                                    // display result in confirm block
+                                        $('#nameContent').text($('#firstName').val());
+                                        $('#emailContent').text($('#mail').val());
+                                        $('#phoneContent').text($('#phone').val());
+                                        $('#userContent').text($('#userName').val());
+                                        $('#genderContent').text($('#gender:checked').val());
+                                        $('#addressContent').text($('#adress').val());
+                                        $('#zibContent').text($('#zibCode').val());
+                                        $('#countryContent').text($('#country').val());
+                                        $('#bancNameContent').text($('#banc_name').val());
+                                        $('#branchName').text($('#branchNameContent').val());
+                                        $('#accountNumberContent').text($('#accountNumber').val());
+                                        $('#next_step').click(function (){
+                                            $('#content').css('display','block');
+                                        });
+                                    break;
+                            }
+                        }
+                    });
+                    $('#previous_step').click(function (){
+                        if(step > 1){
+                            step = step - 1;
+                            progress_step_width = progress_step_width - 20;
+                            progress_step_1_widht = progress_step_1_widht - 18;
+                            $('#progress_step_2').width(progress_step_width+"%");
+                            $('#progress_step_1').width(progress_step_1_widht+"%");
+                            switch(step){
+                                case 1: 
+                                    $('ul li:nth-child(1) img').attr('src','image/account_01.png');
+                                    $('ul li:nth-child(2) img').attr('src','image/personnel_01.png');
+                                    $('#form_desc').text('Account Information:');
+                                    $('#form_index').text('Step 1 - 4');
+                                    $('ul li:nth-child(2) em').css('color','#b9b9b9');
+                                    $('#form_personnel').css('display','none');
+                                    $('#form_account').css('display','block');
+                                    break;
+                                case 2:
+                                    $('ul li:nth-child(2) img').attr('src','image/personnel_02.png');
+                                    $('ul li:nth-child(3) img').attr('src','image/banc_01.png');
+                                    $('#form_desc').text('Personal Information:');
+                                    $('#form_index').text('Step 2 - 4');
+                                    $('ul li:nth-child(3) em').css('color','#b9b9b9');
+                                    $('#form_banc').css('display','none');
+                                    $('#form_personnel').css('display','block');
+                                    break;
+                                case 3:
+                                    $('ul li:nth-child(3) img').attr('src','image/banc_02.png');
+                                    $('ul li:nth-child(4) img').attr('src','image/confirm_01.png');
+                                    $('#form_desc').text('Bank Information:');
+                                    $('#form_index').text('Step 3 - 4');
+                                    $('ul li:nth-child(4) em').css('color','#b9b9b9');
+                                    $('#form_confirm').css('display','none');
+                                    $('#form_banc').css('display','block');
+                                    break;
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
+        <script>
+            $(function (){
+               $('form input').focus(function (){
+                  $(this).parent().find('[class*=alert-info]').css('display','block'); 
+               });
+               $('form input').blur(function (){
+                  $(this).parent().find('[class*=alert-info]').css('display','none');
+                  switch($(this).attr('id')){
+                    case 'mail':
+                          var regexMail  = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+                          if (!regexMail.test(String($(this).val()).toLowerCase())){
+                              $(this).parent().find('[class*=alert-danger]').css('display','block');   
+                          }
+                          else{
+                              $(this).parent().find('[class*=alert-danger]').css('display','none');
+                          }
+                          break;
+                    case 'userName':
+                          if($(this).val().length == 0){
+                              $(this).parent().find('[class*=alert-danger]').css('display','block');    
+                          }
+                          else{
+                              $(this).parent().find('[class*=alert-danger]').css('display','none');
+                          }
+                          break;
+                          
+                    case  'password' :
+                        var regexPassword = new RegExp("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/");
+                        if(!regexPassword.test($(this).val())){
+                            $(this).parent().find('[class*=alert-danger]').css('display','block');
+                        }
+                        else{
+                            $(this).parent().find('[class*=alert-danger]').css('display','none');
+                        }
+                        break;
+                    case 'confirmPassword':
+                        if($(this).val() != $('#password').val()){
+                            $(this).parent().find('[class*=alert-danger]').css('display','block');
+                        }
+                        else{
+                            $(this).parent().find('[class*=alert-danger]').css('display','none');
+                        }
+                        break;
+                    default :
+                        if($(this).val().length == 0){
+                            $(this).parent().find('[class*=alert-danger]').css('display','block');
+                        }
+                        else{
+                            $(this).parent().find('[class*=alert-danger]').css('display','none');
+                        
+                        }
+                        
+                          
+                  }
+               });
+            });
+        </script>
+    </head>
+    <body class="container-fluid"> 
+        <section class="row justify-content-center" style="margin-top: 10px;margin-bottom: 10px">
+            <div class="col-lg-6" style="
+                     box-shadow: 0px 0px 2px 2px black;
+                     border-radius: 5px;
+                     padding: 0px;
+                     border-bottom: #31b0d5 50px solid
+                     ">
+                <div class="container-fluid">
+                    <div class="row" style="
+                         background-color: #31b0d5;
+                         height: 50px;
+                         border-top-left-radius: 5px;
+                         border-top-right-radius: 5px
+                         ">
+                        <div class="col" style="
+                             margin-top: 10px;
+                             ">
+                            <h4 style="
+                                text-align: center;
+                                color: white;
+                                font-weight: bold;
+                                padding-top: 5px;
+                                ">
+                                SIGN UP YOUR BANK ACCOUNT
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h6 style="
+                                text-align: center;
+                                color: #b9b9b9;
+                                background-color: #31b0d5;
+                                color: white;
+                                margin-top: 5px;
+                                font-weight: bold;
+                                ">
+                                Fill all form field to go next step
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="padding: 0px">
+                            <div style="
+                                 height: 1px;
+                                 width: 90%;
+                                 background-color: #b9b9b9;
+                                 position: absolute;
+                                 z-index: -1000;
+                                 top: 25px;
+                                 left: 20px;
+                                ">  
+                            </div>
+                            <div id="progress_step_1" style="
+                                 height: 1px;
+                                 width: 18%;
+                                 background-color: blue;
+                                 position: absolute;
+                                 z-index: -1000;
+                                 top: 25px;
+                                 left: 20px;
+                                 ">
+                                
+                            </div>
+                            <ul>
+                                <li>
+                                    <img src="image/account_01.png"/>
+                                    <em style="color: blue;font-weight: bold">
+                                        Account
+                                    </em>
+                                </li>
+                                <li>
+                                    <img src="image/personnel_01.png"/>
+                                    <em style="color: #b9b9b9;font-weight: bold">
+                                        Personnel
+                                    </em>
+                                </li>
+                                <li>
+                                    <img src="image/banc_01.png"/>
+                                    <em style="color: #b9b9b9;font-weight: bold">
+                                        Banc
+                                    </em>
+                                </li>
+                                <li>
+                                    <img src="image/confirm_01.png"/>
+                                    <em style="color: #b9b9b9;font-weight: bold">
+                                        Confirm
+                                    </em>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_step_2" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 20%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row justify-content-between" style="margin-top: 15px;">
+                        <div class="col-4" id="form_desc" style="
+                             font-weight: bold;
+                             color: blue;
+                             ">
+                            Account information:
+                        </div>
+                        <div class="col-4" id="form_index" style="
+                             text-align: right;
+                             color: #b9b9b9;
+                             font-weight: bold
+                             ">
+                            Step 1-4
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col">
+                            <form id="form_account">
+                                <div class="form-group">
+                                    <label for="mail">Email address</label>
+                                    <input type="email" class="form-control" id="mail" aria-describedby="email" placeholder="Enter email">   
+                                    <div class="alert alert-info" style="margin-top: 5px;display: none">
+                                        it is necessary to enter a valid email address, 
+                                        to validate your account after
+                                    </div>
+                                    <div class="alert alert-danger" style="display: none">
+                                        mai not valid
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="userName">User name</label>
+                                    <input type="text" class="form-control" id="userName" placeholder="Enter your user name">
+                                    <div class="alert alert-info" style="margin-top: 5px;display: none">
+                                        the user name allows you to authenticate
+                                    </div>
+                                    
+                                    <div class="alert alert-danger" style="display: none">
+                                        user name most be not empty
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" id="password" class="form-control" placeholder="Enter your password">
+                                    <div class="alert alert-info" style="margin-top: 5px;display: none">
+                                        you must enter a password valid min: 8 max: 16 [a-z] [A-Z] [0-9]
+                                    </div>
+                                    <div class="progress progress-striped active">
+                                        <div id="jak_pstrength" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                                    </div>
+                                    <div class="alert alert-danger" style="margin-top: 5px;display: none">
+                                        password not valid. 
+                                        you must enter a password valid min: 8 max: 16 [a-z] [A-Z] [0-9]
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmPassword">Confirm Password</label>
+                                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password">
+                                    <div class="alert alert-info" style="margin-top: 5px;display: none">
+                                        check your password to better secure your account
+                                    </div>
+                                    
+                                    <div class="alert alert-danger" style="margin-top: 5px;display: none">
+                                        password not checked
+                                    </div>
+                                </div>
+                            </form>
+                            <form id="form_personnel" style="display: none">
+                                <div class="form-group">
+                                    <label for="firstName">First name</label>
+                                    <input type="text" class="form-control" id="firstName" placeholder="Enter your first name">
+                                    <div class="alert alert-info" style="margin-top: 5px;display: none">
+                                        enter your first name
+                                    </div>
+                                    <div class="alert alert-danger" style="display: none">
+                                       first name can't be empty
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last name</label>
+                                    <input type="text" class="form-control" id="LastName" placeholder="Enter your last name">
+                                    <div class="alert alert-info" style="margin-top: 5px;display: none">
+                                        enter your last name
+                                    </div>
+                                    
+                                    <div class="alert alert-danger" style="display: none">
+                                        last name can't be empty
+                                    </div>
+                                </div>
+                                <div class="form-group">    
+                                    <label>Gender: </label>
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" id="gender" class="form-check-input" value="female">female
+                                        </label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" id="gender" class="form-check-input" value="male">male
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-inline">
+                                    <label>Date Of Birth:</label>
+                                    <input type="date" name="bday" min="1000-01-01"
+                                    max="3000-12-31" class="form-control">   
+                                </div>
+                                <div class="form-group" style="margin-top: 40px">
+                                    <label for="phone">Phone:</label>
+                                    <input type="text" class="form-control" id="phone" placeholder="Enter your phone number">
+                                    <div class="alert alert-info" style="margin-top: 5px;display: none">
+                                        enter your phone number
+                                    </div>
+                                    
+                                    <div class="alert alert-danger" style="display: none">
+                                        phone number can't be empty
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Adress:</label>
+                                    <input type="text" class="form-control" id="adress" placeholder="Enter your Adress">
+                                    <div class="alert alert-info" style="margin-top: 5px;display: none">
+                                        enter your adress
+                                    </div>
+                                    
+                                    <div class="alert alert-danger" style="display: none">
+                                        adress can't be empty
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Zib code:</label>
+                                    <input type="text" class="form-control" id="zibCode" placeholder="Enter your zib code">
+                                    <div class="alert alert-info" style="margin-top: 5px;display: none">
+                                        enter your zib code
+                                    </div>
+                                    
+                                    <div class="alert alert-danger" style="display: none">
+                                        zib code can't be empty
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">State:</label>
+                                    <input type="text" class="form-control" id="state" placeholder="Enter your state">
+                                    <div class="alert alert-info" style="margin-top: 5px;display: none">
+                                        enter your state
+                                    </div>
+                                    
+                                    <div class="alert alert-danger" style="display: none">
+                                        state can't be empty
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="phone">Country:</label>
+                                    <input type="text" class="form-control" id="country" placeholder="Enter your Contry">
+                                    <div class="alert alert-info" style="margin-top: 5px;display: none">
+                                        enter your country
+                                    </div>
+                                    
+                                    <div class="alert alert-danger" style="display: none">
+                                        country can't be empty
+                                    </div>
+                                </div>
+                            </form>
+                            <form id="form_banc" style="display: none">
+                                <div class="form-group">
+                                    <label for="banc_name">Banc name:</label>
+                                    <input type="text" class="form-control" id="banc_name" placeholder="Enter your banc name">
+                                    <div class="alert alert-info" style="margin-top: 5px;display: none">
+                                        enter your banc name
+                                    </div>
+                                    
+                                    <div class="alert alert-danger" style="display: none">
+                                        banc name most be not empty
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="banc_name">Branch Name:</label>
+                                    <input type="text" class="form-control" id="branchName" placeholder="Enter your branch Name">
+                                    <div class="alert alert-info" style="margin-top: 5px;display: none">
+                                        enter your Branch Name
+                                    </div>
+                                    
+                                    <div class="alert alert-danger" style="display: none">
+                                        Branch Name most be not empty
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="banc_name">Account Name:</label>
+                                    <input type="text" class="form-control" id="banc_name" placeholder="Enter your account Name">
+                                    <div class="alert alert-info" style="margin-top: 5px;display: none">
+                                        enter your account name
+                                    </div>
+                                    
+                                    <div class="alert alert-danger" style="display: none">
+                                        account name most be not empty
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="banc_name">Account Number:</label>
+                                    <input type="text" class="form-control" id="accountNumber" placeholder="Enter your account number">
+                                    <div class="alert alert-info" style="margin-top: 5px;display: none">
+                                        enter your account number
+                                    </div>
+                                    
+                                    <div class="alert alert-danger" style="display: none">
+                                        account number most be not empty
+                                    </div>
+                                </div>
+                                <div class="form-inline">
+                                    <label>Account Create:</label>
+                                    <input type="date" name="bday" min="1000-01-01"
+                                    max="3000-12-31" class="form-control">   
+                                </div>
+                            </form>
+                            <div id="form_confirm" class="container-fluid" style="display: none">
+                                <div class="row">
+                                    <div class="col-lg">
+                                    <table style="width: 100%">
+                                    <tr>
+                                    <td>Name</td>
+                                    <td id='nameContent'></td>
+                                </tr> 
+                                <tr>
+                                    <td>Email</td>
+                                    <td id="emailContent"></td>
+                                </tr>
+                                <tr>
+                                    <td>Phone</td>
+                                    <td id="phoneContent">0123456789</td>
+                                </tr> 
+                                <tr>
+                                    <td>User</td>
+                                    <td id="userContent"></td>
+                                </tr>
+                                <tr>
+                                    <td>Gender</td>
+                                    <td id="genderContent"></td>
+                                </tr>
+                                <tr>
+                                    <td>Address</td>
+                                    <td id="addressContent"></td>
+                                </tr>
+                                <tr>
+                                    <td>Zip Code</td>
+                                    <td id='zibContent'></td>
+                                </tr>
+                                <tr>
+                                    <td>Country</td>
+                                    <td id="countryContent"></td>
+                                </tr>
+                                <tr>
+                                    <td>Bank Name</td>
+                                    <td id="bancNameContent"></td>
+                                </tr>
+                                <tr>
+                                    <td>Branch Name</td>
+                                    <td id="branchNameContent">Dhaka city Branch</td>
+                                </tr>
+                                <tr>
+                                    <td>Account Number</td>
+                                    <td id="accountNumberContent"></td>
+                                </tr>
+                            </table>
+                            </div>
+                            <div class="col-lg">
+                                <label style="
+                                       width: 100%;
+                                       height: 200px;
+                                       border-style: dotted;
+                                       cursor: pointer;
+                                       text-align: center
+                                       ">
+                                    <img id="img_profile" src="" style="width: 100%;height: 100%"/>
+                                    <input type="file" style="display: none" onchange="displayImg(this)"/>
+                                    choose profile image
+                                </label>
+                            </div>
+                        </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between" style="padding: 15px">
+                        <button type="button" class="btn btn-primary mb-2" id="previous_step">Previous</button>
+                        <button type="button" class="btn btn-primary mb-2" id="next_step">Next step</button>         
+                    </div>
+                    <hr style="background-color: #31b0d5;height: 10px;"/>
+                </div>
+            </div>
+        </section>
+        <section id="content" class="container-fluid" style="
+                 display: none;
+                 width: 1200px;
+                 background-color: white;
+                 position: fixed;
+                 top: 0;
+                 left: 0;
+                 right: 0;
+                 bottom: 0;
+                 overflow-y: scroll
+                 ">
+            <div class="row justify-content-between">
+                <div class="col" style="
+                     border-bottom: green 2px solid
+                     ">
+                    <img  src="nettler.png"
+                         />
+                </div>
+            </div>
+            <div class="row justify-content-end">
+                <div id="addressContent" class="col-2" style="font-weight: bold;font-size: 20px">
+                    Paysafe LTD<br/>
+                    Compass House<br/>
+                    Vision Park<br/>
+                    Chivers Way<br/>
+                    Cambridge<br/>
+                    CB24 9AD<br/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" id="compteDateCreation" style="
+                     font-size: 25px;
+                     
+                     ">
+                    01/01/2018
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p style="font-size: 20px;font-weight: bold">
+                        Dear,<br/>
+                        We confirm that this person has an account registered with NETELLER:
+                    </p>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 20px">
+                <div class="col" style="font-size: 20px;font-weight: bold">
+                    <strong id="nameContent">mouhamed ali</strong>
+                    <strong id="lastNameContent">derwich</strong>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 50px">
+                <div class="col" >
+                    <strong style="font-size: 25px;font-weight: normal">birth date: </strong>
+                    <strong id="dateNaissanceContent" style="font-size: 25px;font-weight: bold">01/02/2018</strong>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 20px">
+                <div class="col-2">
+                    <p id="addressContent" style="font-size: 25px;font-weight: bold">
+                        36 rue des passerelles 59140 Dunker
+Dunkerque, Nord
+France
+59140
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <strong style="font-size: 25px;font-weight: normal">
+                        nettler account number:  
+                    </strong>
+                    <strong id="accountNumberContent" style="font-size: 25px;font-weight: bold">
+                        45454545454545454
+                    </strong>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 35px">
+                <div class="col">
+                    <em style="font-size: 25px">
+                        The NETELLER account of the member is
+                    </em>
+                    <strong style="font-size: 25px;font-weight: bold">
+                       Not verified 
+                    </strong>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 20px">
+                <div class="col">
+                    <em style="font-size: 25px">
+                        Registered email address:
+                    </em>
+                    <strong id="emailContent" style="font-size: 25px;font-weight: bold">
+                        andrer.mahdi@gmail.com
+                    </strong>
+                </div>
+            </div>
+            <div class="row" style="border-bottom: green 2px solid">
+                <div class="col">
+                    <h2 style="text-align: center;font-weight: bold">
+                        PRIVATE AND CONFIDENTIAL
+                    </h2>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 50px">
+                <p>
+                    Copyright © 2017 Paysafe Holdings UK Limited. Tous droits réservés. Paysafe Financial Services Limited est une société constituée en
+Angleterre (sous le numéro :4478861), dont le siège social est situé à Compass House, Vison Park, Chivers Way, Cambridge, CB24 9BZ,
+Angleterre. Paysafe Financial Services Limited (FRN :900015) est une société autorisée par la Financial Conduct Authority au titre des
+règlementations de 2011 sur l’argent électronique (« Electronic Money Regulations 2011 ») à émettre de l’argent et des instruments de paiement électroniques. Paysafe
+Merchant Services Corp est un service ISO/MSP agréé de Merrick Bank, South Jordan, UT. NETELLER et Net+ sont des marques déposées de Paysafe Holdings UK
+Limited. Les cartes prépayées Net+ sont émises par Paysafe Financial Services Limited en vertu d’un agrément de Mastercard International Inc. Mastercard est une marque
+déposée de Mastercard International Inc
+                </p>
+            </div>
+            <div class="row justify-content-center" style="margin-bottom: 20px">
+                <div class="col-lg-4">
+                    <input id="cmd" class="btn btn-primary" type="button" value="download" style="
+                           font-weight: bold;
+                           width: 100%;
+                           height: 50px
+                           "/>
+                           
+                </div>
+            </div>
+        </section>
+        <div id="editor"></div>
+        
+        
+        <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
+        <script>
+            
+            var doc = new jsPDF();
+            var specialElementHandlers = {
+                '#editor': function (element, renderer) {
+                return true;
+                }
+            };
+
+            $('#cmd').click(function () {   
+                doc.fromHTML($('#content').html(), 15, 15, {
+                    'width': 170,
+                    'elementHandlers': specialElementHandlers
+                });
+                doc.save('sample-file.pdf');
+            });
+        </script>
+    </body>
+</html>
